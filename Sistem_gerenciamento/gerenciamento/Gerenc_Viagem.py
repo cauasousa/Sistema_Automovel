@@ -1,72 +1,39 @@
+import Sistem_gerenciamento.gerenciamento.Classe_Ger as GR
 from classes.Viagem import Viagem
-from classes.P_Veiculo import Veiculo
-from classes.P_Motorista import Motorista
-from Sistem_gerenciamento.interface.Interface import Abst_Nivel_2_sist
-from random import randint
 
 
-class Gerenciamento_Viagem(Abst_Nivel_2_sist):
-    
-    def __init__(self) -> None:
-        self.__data_base = dict()
-        self.__gerador_cod = list()
+class Gerenciamento_Viagem(GR.Gerenciamento_N2):
+    def __init__(self):
+        super().__init__()
 
-    def __validar_cod(self, lista, num):
-        if not lista: return False
-        if(self.__gerador_cod[0] == num) : return True
-        return self.__validar_cod(lista[1:], num)
-
-    def add(self, destino:str, origem:str, distancia:float, motorista : Motorista, veiculo : Veiculo):
-        viagem = Viagem(origem, destino, distancia, motorista, veiculo)
-        veiculo.Km+=distancia        
-        cod_aleatorio = 0
-        
-        while True:
-            cod_aleatorio = randint(1, 100)
-            if(self.__validar_cod(self.__gerador_cod, cod_aleatorio) == False): 
-                self.__gerador_cod.append(cod_aleatorio)
-                break
-
-        self.__data_base[cod_aleatorio] = viagem
-        print("O código da Viagem é ", cod_aleatorio)
-    
-    def __find_viagem(self, cod):
-        find_viagem = self.__data_base.get(cod)
-
-        if(find_viagem == None):
-            print("Viagem Não Cadastrada!")
-        else:
-            return find_viagem
-        
-        return None
-
-    def editar(self, cod:int, alteracao, opc:int):
+    def editar(self, viagem, alteracao, opc:int):
         """opc:
             1 - Origem\n 
             2 - Destino\n
             3 - Distancia\n
         """
-        viagem = self.__find_viagem(cod)
-        if None not in viagem:
+        
+        if None != viagem:
             if(opc == 1):
                 viagem.origem = alteracao
             if(opc == 2):
                 viagem.destino = alteracao
-            if(opc == 3): 
-                aux = alteracao - viagem.distancia
-                viagem.distancia = alteracao
-                viagem.veiculo.Km += aux
-
-            print("ATUALIZADO !!")
+            if(opc == 3):
+                alteracao = float(alteracao)
+                if(alteracao >= 0.0):
+                    aux = alteracao - viagem.distancia
+                    viagem.distancia = alteracao
+                    viagem.veiculo.km += aux
+                else:
+                    print('\t\t\033[1;31mImpossível Ter Distancia Negativa. Informe Um Valor Maior que Igual ou Maior que Zero, Por favor!\033[m')
+            print("\t\t\033[1;31mATUALIZADO !!\033[m")
         else:
-            print("Not Find")
+            print("\t\t\033[1;31mNot Find\033[m")
 
     def motorista_maior_Km(self):
-        name = {}
-        value = 0
-        
+        name = {}        
 
-        for i in self.__data_base:
+        for i in self._data_base.values():
             con = 0
             if i.motorista.cpf not in name:
                 name.update({i.motorista.cpf: [i.motorista.nome, i.distancia]})
@@ -75,18 +42,31 @@ class Gerenciamento_Viagem(Abst_Nivel_2_sist):
                 name.update({i.motorista.cpf:[i.motorista.nome, con]})
 
         aux = 0
-        moto = '**'
+        moto = list()
         for i in name.values():
-            if aux < i[1]:
+            if(aux == i[1]):
+                moto.append(i[0])
+            elif aux < i[1]:
                 aux = i[1]
-                moto = i[0]
+                moto.clear()
+                moto.append(i[0])
 
-        print('Motorista com maior Km: ', moto, 'com', aux, 'KM')
+        if(len(moto) == 0):
+            print('\t\t\033[1;31mNão tem Motorista com maior KM\033[m')
+        else:
+            print('\t\t\033[1;34mMotorista(s) com maior(es) Km: ', end='')
+            design = 0
+            for i in moto:
+                print(i, end=' ')
+                design+=1
+                if(len(moto) > design and len(moto) > 0):
+                    print(',', end=' ')
+            print('com', aux, 'KM', '\033[m')
     
     def Motorista_realizou_vigens(self):
         name = {}
-
-        for i in self.__data_base:
+        
+        for i in self._data_base.values():
             con = 0
             if i.motorista.cpf not in name:
                 name.update({i.motorista.cpf: [i.motorista.nome, 1]})
@@ -95,15 +75,23 @@ class Gerenciamento_Viagem(Abst_Nivel_2_sist):
                 name.update({i.motorista.cpf:[i.motorista.nome, con]})
 
         aux = 0
-        moto = '**'
+        moto = list()
         for i in name.values():
-            if aux < i[1]:
+            if(aux == i[1]):
+                moto.append(i[0])
+            elif aux < i[1]:
                 aux = i[1]
-                moto = i[0]
+                moto.clear()
+                moto.append(i[0])
 
-        print('Motorista que mais realizou viagem: ', moto, 'com', aux, 'viagens')
-    
-    def quant_min(self):
-        if(len(self.__gerador_cod) > 0):
-            return True
-        return False
+        if(len(moto) == 0):
+            print('\t\t\033[1;31mNão Houve Cadastro de Viagem\033[m')
+        else:
+            print('\t\t\033[1;34mMotorista(s) que mais realiza(ram) viagens: ', end='')
+            design = 0
+            for i in moto:
+                print(i, end=' ')
+                design+=1
+                if(len(moto) > design and len(moto) > 0):
+                    print(',', end=' ')
+            print('com', aux, 'viagens', '\033[m')

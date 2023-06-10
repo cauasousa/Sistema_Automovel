@@ -1,23 +1,12 @@
 from classes.P_Veiculo import Veiculo
-from Sistem_gerenciamento.interface.Interface import Abst_Nivel_3_sist
+import Sistem_gerenciamento.gerenciamento.Classe_Ger as GR
 
-class GerenciamentoVeiculo(Abst_Nivel_3_sist):
 
-    def __init__(self) -> None:
-        self.__database = dict()
-        self.__quant_veiculo = 0
+class Gerenciamento_Veiculo(GR.Gerenciamento_N3):
 
-    def add(self, marca, modelo, ano, placa, chassi, cor, Km: float):
-        new_veicu = Veiculo(marca, modelo, ano, placa, chassi, cor, Km)
-        self.__database[placa] = new_veicu
-        __quant_veiculo+=1
+    def __init__(self):
+        super().__init__()
 
-    def find(self, placa):
-        find_veicu = self.__database.get(placa)
-
-        if(find_veicu == None):
-            print("Veiculo Não Encontrado!")
-        return find_veicu
 
     def editar(self, opc:int, Objeto_Find : Veiculo, novo):
         """
@@ -27,9 +16,9 @@ class GerenciamentoVeiculo(Abst_Nivel_3_sist):
             3 - Ano 
         """
         if(Objeto_Find == None):
-            print("USUA NOT FIND")
+            print("\t\t\033[1;31mUSUA NOT FIND\033[m")
             return 
-        if 6 < opc > 0:
+        if (7 > opc) and (opc > 0):
             if(opc == 1):
                 Objeto_Find.marca = novo
             if(opc == 2):
@@ -41,38 +30,36 @@ class GerenciamentoVeiculo(Abst_Nivel_3_sist):
             if(opc == 5):
                 Objeto_Find.cor = novo
 
-    def deletar(self, Objeto_Find: Veiculo):
-    
-        if(Objeto_Find == None):
-            print("USUA NOT FIND")
-            return 
-    
-        del self.__database[Objeto_Find.placa]
-        self.__quant_veiculo-=1
-
     def see_km_veic(self, placa):
         ref = self.find(placa)
-        if None in ref:
-            print("\033[4;31mThe Km is ", ref.km,'\033[m')
+        if None != ref:
+            print("\t\t\033[1;34;40mThe Km is ", ref.km,'\033[m')
         else:
-            print("\033[4;31mNot Find Veiculo!\033[m")
+            print("\t\t\033[1;31mNot Find Veiculo!\033[m")
 
     def maior_Km_veiculo(self):
-        placa = '**'
+        placa = list()
         Km_maior = 0
         
-        for i in self.__database.values():
-            if (i.Km >= Km_maior):
-                Km_maior = i.Km
-                placa = i.placa
-        if not placa:
-            print('O Veiculo da Placa ', placa, 'Rodou ', Km_maior)
-    
-    def quant_min(self):
-        if self.__quant_veiculo > 0:
-            return True
-        return False
-    
-    @property
-    def quant_veiculo(self):
-        return self.__quant_veiculo
+        for i in self._data_base.values():
+            if(i.km == Km_maior):
+                placa.append(i.placa)
+            elif (i.km > Km_maior):
+                Km_maior = i.km
+                placa.clear()
+                placa.append(i.placa)
+
+        if len(placa) != 0:
+            print('\t\t\033[1;34mO(s) Veiculo(s) da(s) Placa(s): ', end='')
+
+            design = 0
+            for i in placa:
+                print(i, end=' ')
+                design+=1
+                if(len(placa) > design and len(placa) > 0):
+                    print(',', end=' ')
+                    
+
+            print('Rodou ', Km_maior, 'KM', '\033[m')
+        else:
+            print('\t\t\033[1;31mNão Possui Viagem Cadastrada\033[m')
