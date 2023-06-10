@@ -84,11 +84,11 @@ class Menu:
         print('\t\t\033[1;34;40ma. Cadastrar Viagem\033[m')
         print('\t\t\033[1;34;40mb. Editar Viagem\033[m')
         
-        opc = input("\t\t\033[1;34m>>>>>>[m ")
+        opc = input("\t\t\033[1;34m>>>>>>\033[m ")
 
         if('a' in opc and self.__R_motori.quant_min() and self.__R_veicul.quant_min()):
-            destino = input("\t\tDestino: ")
-            origem = input("\t\tOrigem: ")
+            destino = input("\t\t Destino: ")
+            origem = input("\t\t Origem: ")
             distancia = self.vd.input_distancia()
             if distancia == None: return
 
@@ -158,7 +158,8 @@ class Menu:
             ano = self.vd.input_ano()
             if ano == None: return 
 
-            placa = input("\t\t Placa: ")
+            placa = input("\t\t\033[1;34m Placa: ")
+
             chassi = input("\t\t chassis: ")
             cor = input("\t\t COR: \033[m")
 
@@ -169,7 +170,7 @@ class Menu:
             self.__R_veicul.add(veiculo, placa)
 
         elif('b' in opc and self.__R_veicul.quant_min()):
-            placa = input("\t\tPlaca do veiculo: ")
+            placa = input("\t\t\033[1;34mPlaca do veiculo:\033[m ")
             ref = self.__R_veicul.find(placa)
 
             if None != ref:
@@ -222,7 +223,6 @@ class Menu:
         
         else:
             print("\t\t\033[1;34mWrite again\033[m")
-
 
     def __Gerenciamento_Motorista(self):
         
@@ -316,25 +316,25 @@ class Menu:
             if opc == 0:
                 return False
             elif(opc == 1):
-                os.system('cls')
+                #os.system('cls')
                 self.__Gerenciamento_Motorista()
             elif(opc == 2):
-                os.system('cls')
+                #os.system('cls')
                 self.__Gerenciamento_Veiculo()
             elif(opc == 3 and self.__R_motori.quant_min() and self.__R_veicul.quant_min()):
-                os.system('cls')
+                #os.system('cls')
                 self.__Gerenciamento_Viagem()
             elif(opc == 4 and self.__R_veicul.quant_min()):
-                os.system('cls')
+                #os.system('cls')
                 self.__Registrar_Abastecimento()   
             elif(opc == 5 and self.__R_veicul.quant_min()):
-                os.system('cls')
+                #os.system('cls')
                 self.__Registrar_manutencao()
             elif(opc == 6):
-                os.system('cls')
+                #os.system('cls')
                 self.__Relatorio()  
             else:
-                os.system('cls')
+                #os.system('cls')
                 print("\t\t\033[1;31Write again\033[m")
             
             return True

@@ -12,8 +12,8 @@ class Input_Validar:
         
         while True:
             try:
-                cpf = input('\t\t\033[1;34mCPF ( 0 - SAIR ):\033[m ').strip()
-                if '0' == cpf:
+                cpf = input('\t\t\033[1;34mCPF ( 099 - SAIR ):\033[m ').strip()
+                if '099' == cpf:
                     return None
                 self.vl.cpf(cpf)
             except ValueError:
@@ -43,25 +43,25 @@ class Input_Validar:
                 return cpf 
 
     def input_rg(self):
-        return self.vl.is_numero_int(['\033[1;34mRG ( 0 - SAIR ): \033[m', '\033[1;34mRG Inválido, contém letra!\033[m'])
+        return self.vl.is_numero_int(['\033[1;34mRG ( 099 - SAIR ): \033[m', '\033[1;34mRG Inválido, contém letra!\033[m'])
     
     def input_cnh(self):
-        return self.vl.is_numero_int(['\033[1;34mCNH ( 0 - SAIR ): \033[m', '\033[1;31mCNH Inválido, contém letra!\033[m'])
+        return self.vl.is_numero_int(['\033[1;34mCNH ( 099 - SAIR ): \033[m', '\033[1;31mCNH Inválido, contém letra!\033[m'])
     
     def input_ano(self):
-        return self.vl.is_numero_int(['\033[1;34mANO ( 0 - SAIR ): \033[m', '\033[1;34mANO Inválido, contém letra!\033[m'])
+        return self.vl.is_numero_int(['\033[1;34mANO ( 099 - SAIR ): \033[m', '\033[1;34mANO Inválido, contém letra!\033[m'])
 
     def input_km(self):
-        return self.vl.is_numero_float(['\033[1;34mKM ( 0 - SAIR ): \033[m', '\033[1;34mKM Inválido. contém letra ou sinal incorreto!\033[m'])
+        return self.vl.is_numero_float(['\033[1;34mKM ( 099 - SAIR ): \033[m', '\033[1;34mKM Inválido. contém letra ou sinal incorreto!\033[m'])
     
     def input_distancia(self):
-        return self.vl.is_numero_float(['\033[1;34mDistância ( 0 - SAIR ): \033[m', '\033[1;34mDistância Inválido. contém letra ou sinal incorreto!\033[m'])
+        return self.vl.is_numero_float(['\033[1;34mDistância ( 099 - SAIR ): \033[m', '\033[1;34mDistância Inválido. contém letra ou sinal incorreto!\033[m'])
     
     def input_Valor(self):
-        return self.vl.is_numero_float(['\033[1;34mValor ( 0 - SAIR ):\033[m ', '\033[1;34mValor Inválido. contém letra ou sinal incorreto!\033[m'])
+        return self.vl.is_numero_float(['\033[1;34mValor ( 099 - SAIR ):\033[m ', '\033[1;34mValor Inválido. contém letra ou sinal incorreto!\033[m'])
 
     def input_Custo(self):
-        return self.vl.is_numero_float(['\033[1;34mCusto ( 0 - SAIR ):\033[m ', '\033[1;34mCusto Inválido. contém letra ou sinal incorreto!\033[m'])
+        return self.vl.is_numero_float(['\033[1;34mCusto ( 099 - SAIR ):\033[m ', '\033[1;34mCusto Inválido. contém letra ou sinal incorreto!\033[m'])
 
     def input_Data(self):
-        return self.vl.is_numero_int(['\033[1;34mData ( 0 - SAIR ):\033[m ', '\033[1;34mData Inválido. contém letra ou sinal incorreto!\033[m'])
+        return self.vl.is_numero_int(['\033[1;34mData ( 099 - SAIR ):\033[m ', '\033[1;34mData Inválido. contém letra ou sinal incorreto!\033[m'])

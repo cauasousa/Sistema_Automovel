@@ -60,9 +60,9 @@ class Gerenciamento_N3(Gerenciamento_N2, Abst_Nivel_3_sist):
         self._quant = 0
 
     def add(self, new_inst, cod):
-        
-        if self._validar_cod(self._gerador_cod, cod) == True: 
-            self._gerador_cod.append(cod)
+
+        if self._validar_cod(self._gerador_cod, cod) == True:
+            
             print("\t\t\033[1;32mJá Possui Cadastro!!\033[m")
             return
         self._gerador_cod.append(cod)

@@ -64,11 +64,12 @@ class Validacao:
             try:
                 print('\t\t',frase[0], end=' ')
                 num = input().strip()
-                if '0' == num:
+                if '099' == num:
                     return None
                 num = num.replace(' ', '')
                 num = num.replace('-', '')
                 num = num.replace('.', '')
+                num = num.replace('/', '')
                 int(num)
             except ValueError:
                 os.system('cls')
@@ -84,7 +85,7 @@ class Validacao:
             try:
                 print('\t\t', frase[0], end=' ')
                 num = input().strip()
-                if '0' == num:
+                if '099' == num:
                     return None
                 num = num.replace(' ', '')
                 float(num)

@@ -7,6 +7,8 @@ my_menu = Menu()
 
 #      :)
 
-
+#cod = 150
+#cod = 169
+#cod = 182
 while cond != False:  
     cond = my_menu.Principal()
